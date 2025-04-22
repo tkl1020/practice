@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Matrix Rain</title>
+  <style>
+    /* Basic page reset and styling */
+    body {
+      margin: 0;
+      background: black;
+      overflow: hidden; /* Prevent scrollbars */
+    }
+    canvas {
+      display: block; /* Remove default padding/margin */
+    }
+  </style>
+</head>
+<body>
+  <canvas id="rain"></canvas>
+
+  <script>
+    // Get the canvas and context
+    const canvas = document.getElementById('rain');
+    const ctx = canvas.getContext('2d');
+
+    // Make canvas full-screen
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Characters used for the rain effect
+    const chars = '01';
+    const fontSize = 16;
+
+    // Number of vertical columns based on font size
+    const columns = canvas.width / fontSize;
+
+    // Array to track y-position of each column's drop
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    // Hue value for color shifting effect
+    let hue = 0;
+
+    // Main draw function called on each frame
+    function draw() {
+      // Slightly transparent black background for trailing effect
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Set font and color using HSL to cycle colors
+      ctx.fillStyle = `hsl(${h

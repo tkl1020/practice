@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thomas Kane Leonard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Thomas Kane Leonard</div>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div style="background: #2a9d8f; color: white; padding: 1rem; text-align: center;">
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+  <header>
+    <h1>Azure | Python | Data | Cloud</h1>
+    <p>Certified cloud technologist and Python developer. Builder. Analyst. Storyteller.</p>
+  </header>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <p>I'm a 27-year-old certified cloud pro with experience in Python, SQL, and data analytics. I've got Azure, AWS, GCP, and Python automation certifications, and I lead teams outside tech while building my path back in.</p>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <h3>Project Title 1</h3>
+        <p>Description of what the project does. Built with Python and Flask.</p>
+      </div>
+      <div class="project-card">
+        <h3>Project Title 2</h3>
+        <p>Description of a second project. Maybe a cloud-based dashboard or data tool.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <form action="/contact" method="POST">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="email" name="email" placeholder="Your Email" required>
+      <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Thomas Kane Leonard. All rights reserved.</p>
+  </footer>
+
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
