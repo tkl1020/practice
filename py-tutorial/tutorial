@@ -1,0 +1,98 @@
+import tkinter as tk
+from tkinter import ttk, messagebox, scrolledtext
+import io
+import contextlib
+
+class PythonTutorialApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Python Tutorial App")
+        self.create_widgets()
+
+    def create_widgets(self):
+        self.sections = [
+            ("1. Variables", self.show_variables),
+            ("2. If Statements", self.show_if_statements),
+            ("3. Loops", self.show_loops),
+            ("4. Functions", self.show_functions),
+            ("5. Lists", self.show_lists),
+            ("6. Dictionaries", self.show_dicts),
+            ("7. Classes", self.show_classes),
+            ("8. File I/O", self.show_file_io)
+        ]
+
+        label = tk.Label(self.root, text="Choose a section to learn about:", font=("Arial", 14))
+        label.pack(pady=10)
+
+        for name, func in self.sections:
+            btn = tk.Button(self.root, text=name, width=30, command=func)
+            btn.pack(pady=5)
+
+    def run_demo(self, code):
+        output = io.StringIO()
+        with contextlib.redirect_stdout(output):
+            try:
+                exec(code)
+            except Exception as e:
+                print(f"Error: {e}")
+        result = output.getvalue()
+        messagebox.showinfo("Demo Output", result)
+
+    def show_code_window(self, title, explanation, code):
+        win = tk.Toplevel(self.root)
+        win.title(title)
+
+        tk.Label(win, text=explanation, font=("Arial", 12), wraplength=400, justify="left").pack(padx=10, pady=5)
+
+        text_box = scrolledtext.ScrolledText(win, width=60, height=10, font=("Courier", 10))
+        text_box.pack(padx=10, pady=5)
+        text_box.insert(tk.END, code)
+        text_box.config(state=tk.DISABLED)
+
+        run_button = tk.Button(win, text="Run Demo", command=lambda: self.run_demo(code))
+        run_button.pack(pady=5)
+
+    def show_variables(self):
+        explanation = "Variables store information. You can store numbers, text, or other data types."
+        code = "x = 5\nname = 'Alice'\nis_happy = True\nprint(x, name, is_happy)"
+        self.show_code_window("Variables", explanation, code)
+
+    def show_if_statements(self):
+        explanation = "If statements let your program make decisions based on conditions."
+        code = "age = 18\nif age >= 18:\n    print('You are an adult.')\nelse:\n    print('You are a minor.')"
+        self.show_code_window("If Statements", explanation, code)
+
+    def show_loops(self):
+        explanation = "Loops let you repeat actions. Use 'for' for a known number of times, and 'while' for unknown."
+        code = "for i in range(5):\n    print('For loop:', i)\n\ncount = 0\nwhile count < 3:\n    print('While loop:', count)\n    count += 1"
+        self.show_code_window("Loops", explanation, code)
+
+    def show_functions(self):
+        explanation = "Functions help you group reusable blocks of code."
+        code = "def greet(name):\n    print('Hello, ' + name)\n\ngreet('Alice')"
+        self.show_code_window("Functions", explanation, code)
+
+    def show_lists(self):
+        explanation = "Lists store multiple items in one variable."
+        code = "fruits = ['apple', 'banana', 'cherry']\nprint(fruits[0])\nfor fruit in fruits:\n    print(fruit)"
+        self.show_code_window("Lists", explanation, code)
+
+    def show_dicts(self):
+        explanation = "Dictionaries store data in key-value pairs."
+        code = "person = {'name': 'Bob', 'age': 30}\nprint(person['name'])\nfor key in person:\n    print(key, person[key])"
+        self.show_code_window("Dictionaries", explanation, code)
+
+    def show_classes(self):
+        explanation = "Classes let you create your own custom data types."
+        code = "class Dog:\n    def __init__(self, name):\n        self.name = name\n\n    def bark(self):\n        print(self.name + ' says woof!')\n\nmy_dog = Dog('Fido')\nmy_dog.bark()"
+        self.show_code_window("Classes", explanation, code)
+
+    def show_file_io(self):
+        explanation = "File I/O lets you read and write files on your computer."
+        code = "with open('test.txt', 'w') as f:\n    f.write('Hello world!')\n\nwith open('test.txt', 'r') as f:\n    content = f.read()\n    print(content)"
+        self.show_code_window("File I/O", explanation, code)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = PythonTutorialApp(root)
+    root.mainloop()
